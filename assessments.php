@@ -5,7 +5,7 @@ include('dbconfiguration.php');
 $user = $_SESSION['course_user'];
 $user_id = $user['id'];
 
-$sql = "SELECT * FROM scorerecord WHERE user_id=$user_id";
+$sql = "SELECT * FROM scorerecord WHERE user_id=$user_id ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
 } else {

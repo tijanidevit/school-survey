@@ -7,7 +7,8 @@ include('dbconfiguration.php');
 // if (isset($_POST['calculate'])) { // Check register button is clicked or not
 // Define some variables
 $result = $_GET['result'];
-$user_id = $_SESSION['id'];
+$user = $_SESSION['course_user'];
+$user_id = $user['id'];
 
 
 
