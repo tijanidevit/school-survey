@@ -4,7 +4,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <title>LaunchPage - Creative Landing Page Template</title>
+    <title>FPI - Course Program</title>
 
     <!-- Loading Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
