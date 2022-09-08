@@ -32,4 +32,6 @@ run('CREATE TABLE admin(
 )');
 
 
-            
+run("INSERT INTO `admin` (`id`, `username`, `password`) VALUES (NULL, 'admin', MD5('admin'))");
+
+?>

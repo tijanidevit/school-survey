@@ -9,7 +9,7 @@ include('../dbconfiguration.php');
 include('../functions.php');
 
 
-$sql = "SELECT * FROM scorerecord JOIN users on users.id = scorerecord.user_id ORDER BY scorerecord.id DESC";
+$sql = "SELECT * FROM users ORDER BY matric_no DESC";
 $result = mysqli_query($conn, $sql);
 
 
@@ -44,12 +44,12 @@ $result = mysqli_query($conn, $sql);
                 <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-title-wrapper">
                         <div class="page-title-box">
-                            <h4 class="page-title bold">Dashboard</h4>
+                            <h4 class="page-title bold">Students</h4>
                         </div>
                         <div class="breadcrumb-list">
                             <ul>
                                 <li class="breadcrumb-link">
-                                    <a href="#"><i class="fas fa-home mr-2"></i>Dashboard</a>
+                                    <a href="./"><i class="fas fa-home mr-2"></i>Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-link active">Admin</li>
                             </ul>
@@ -63,7 +63,7 @@ $result = mysqli_query($conn, $sql);
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card chart-card">
                         <div class="card-header">
-                            <h4 class="has-btn">Assessments</h4>
+                            <h4 class="has-btn">All Students</h4>
                         </div>
 
 
@@ -74,11 +74,10 @@ $result = mysqli_query($conn, $sql);
                                         <thead>
                                             <tr>
                                                 <th>S/N</th>
-                                                <th>Student</th>
+                                                <th>Fullname</th>
                                                 <th>Email</th>
                                                 <th>Matric number</th>
-                                                <th>Result</th>
-                                                <th>Assessment Date</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -87,13 +86,12 @@ $result = mysqli_query($conn, $sql);
                                                     <td><?php echo $sn+ 1 ?></td>
                                                     <td>
                                                         <span class="img-thumb ">
-                                                            <span class="ml-2 "><a href="student?id=<?php echo $row['user_id'] ?>"><?php echo $row['full_studentName'] ?></a></span>
+                                                            <span class="ml-2 "><a href="student?id=<?php echo $row['id'] ?>"><?php echo $row['full_studentName'] ?></a></span>
                                                         </span>
                                                     </td>
                                                     <td><?php echo $row['email'] ?></td>
                                                     <td><?php echo $row['matric_no'] ?></td>
-                                                    <td><?php getAdminMessage($row['result']) ?></td>
-                                                    <td><?php format_date($row['created_at']) ?></td>
+                                                    <td><a class="btn btn-info" href="student?id=<?php echo $row['id'] ?>">View assessments</a></td>
                                                 </tr>
                                             <?php endwhile ?>
                                         </tbody>

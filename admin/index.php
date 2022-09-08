@@ -1,125 +1,123 @@
-<?php
+<?php 
 session_start();
-include "authentication.php";
-
-$msg = "";
-
-if (isset($_POST['loginAdmin'])) {
-    $user_name = $_POST['username'];
-    $password = md5($_POST['password']);
-
-    $sql = "SELECT * FROM adminlogin WHERE username='$user_name' OR email='$user_name'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        if ($row['password'] == $password) {
-            $_SESSION['id'] = $row['id'];
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['phone'] = $row['phone'];
-            $_SESSION['full_name'] = $row['full_name'];
-            header("Location:index.php");
-        } else {
-            $msg = "<div class='alert alert-danger'>Password is incorrect. Please try again.</div>";
-        }
-    } else {
-        $msg = "<div class='alert alert-danger'>Username or Email is incorrect. Please try again.</div>";
-    }
+if (isset($_SESSION['course_admin'])) {
+    header('location: dashboard');
+    exit();
 }
-
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zxx">
 <head>
+    <title>ADMIN</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="">
+    <meta name="keywords" content="">
     <meta name="author" content="">
-
-    <title>Log in </title>
-
-    <!-- Vendors Style-->
-    <link rel="stylesheet" href="src/css/vendors_css.css">
-
-    <!-- Style-->
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/skin_color.css">
-
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" href="assets/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/auth.css">
+    <!-- Favicon Link -->
+    <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png">
 </head>
 
-<body class="hold-transition theme-primary bg-img" style="background-image: url(images/auth-bg/bg-1.jpg)">
-
-    <div class="container h-p100">
-        <div class="row align-items-center justify-content-md-center h-p100">
-
-            <div class="col-12">
-                <div class="row justify-content-center g-0">
-                    <div class="col-lg-5 col-md-5 col-12">
-                        <div class="bg-white rounded10 shadow-lg">
-                            <div class="content-top-agile p-20 pb-0">
-                                <h2 class="text-primary">Login Here</h2>
-                                <p class="mb-0">Login here to continue to... </p>
-                            </div>
-                            <div class="p-40">
-                                <form action="" method="post">
-                                    <?php echo $msg; ?>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
-                                            <input type="text" class="form-control ps-15 bg-transparent" name="username"
-                                                placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text  bg-transparent"><i
-                                                    class="ti-lock"></i></span>
-                                            <input type="password" class="form-control ps-15 bg-transparent"
-                                                name="password" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="basic_checkbox_1" required>
-                                                <label for="basic_checkbox_1">Remember Me</label>
-                                            </div>
-                                        </div>
-                                        <!-- /.col -->
-
-                                        <!-- /.col -->
-                                        <div class="col-12 text-center">
-                                            <button type="submit" name="loginAdmin"
-                                                class="btn btn-danger mt-10">LOGIN</button>
-                                        </div>
-                                        <!-- /.col -->
-                                    </div>
-                                </form>
-                                <div class="text-center">
-                                    <p class="mt-15 mb-0">Don't have an account? <a href="auth_register.php"
-                                            class="text-warning ms-5">Sign Up</a></p>
-                                </div>
-                            </div>
-                        </div>
-
+<body>
+    <div class="ad-auth-wrapper">
+        <div class="ad-auth-box">
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="ad-auth-img">
+                        <img src="assets/images/auth-img1.png" alt="" />
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="ad-auth-content">
+                        <form method="post" id="loginForm">
+                            <center>
+                                <a href="#" class="ad-auth-logo">
+                                    <img height="80" src="../images/logo.png" alt="" />
+                                </a>
+                            </center>
+                            <h2><span class="primary">Admin,</span>Welcome!</h2>
+                            <p>Please Enter Your Details Below to Continue</p>
+                            <div class="ad-auth-form">
+                                <div id="result"></div>
+                                <div class="ad-auth-feilds mb-30">
+                                    <input required name="username" type="text" placeholder="Username" class="ad-input" />
+                                    <div class="ad-auth-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.3 483.3"><path d="M424.3,57.75H59.1c-32.6,0-59.1,26.5-59.1,59.1v249.6c0,32.6,26.5,59.1,59.1,59.1h365.1c32.6,0,59.1-26.5,59.1-59.1    v-249.5C483.4,84.35,456.9,57.75,424.3,57.75z M456.4,366.45c0,17.7-14.4,32.1-32.1,32.1H59.1c-17.7,0-32.1-14.4-32.1-32.1v-249.5    c0-17.7,14.4-32.1,32.1-32.1h365.1c17.7,0,32.1,14.4,32.1,32.1v249.5H456.4z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path><path d="M304.8,238.55l118.2-106c5.5-5,6-13.5,1-19.1c-5-5.5-13.5-6-19.1-1l-163,146.3l-31.8-28.4c-0.1-0.1-0.2-0.2-0.2-0.3    c-0.7-0.7-1.4-1.3-2.2-1.9L78.3,112.35c-5.6-5-14.1-4.5-19.1,1.1c-5,5.6-4.5,14.1,1.1,19.1l119.6,106.9L60.8,350.95    c-5.4,5.1-5.7,13.6-0.6,19.1c2.7,2.8,6.3,4.3,9.9,4.3c3.3,0,6.6-1.2,9.2-3.6l120.9-113.1l32.8,29.3c2.6,2.3,5.8,3.4,9,3.4    c3.2,0,6.5-1.2,9-3.5l33.7-30.2l120.2,114.2c2.6,2.5,6,3.7,9.3,3.7c3.6,0,7.1-1.4,9.8-4.2c5.1-5.4,4.9-14-0.5-19.1L304.8,238.55z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path></svg>
+                                    </div>
+                                </div>
+                                <div class="ad-auth-feilds">
+                                    <input required name="password" type="password" placeholder="Password" class="ad-input" />
+                                    <div class="ad-auth-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 482.8 482.8"><path d="M395.95,210.4h-7.1v-62.9c0-81.3-66.1-147.5-147.5-147.5c-81.3,0-147.5,66.1-147.5,147.5c0,7.5,6,13.5,13.5,13.5    s13.5-6,13.5-13.5c0-66.4,54-120.5,120.5-120.5c66.4,0,120.5,54,120.5,120.5v62.9h-275c-14.4,0-26.1,11.7-26.1,26.1v168.1    c0,43.1,35.1,78.2,78.2,78.2h204.9c43.1,0,78.2-35.1,78.2-78.2V236.5C422.05,222.1,410.35,210.4,395.95,210.4z M395.05,404.6    c0,28.2-22.9,51.2-51.2,51.2h-204.8c-28.2,0-51.2-22.9-51.2-51.2V237.4h307.2L395.05,404.6L395.05,404.6z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path><path d="M241.45,399.1c27.9,0,50.5-22.7,50.5-50.5c0-27.9-22.7-50.5-50.5-50.5c-27.9,0-50.5,22.7-50.5,50.5    S213.55,399.1,241.45,399.1z M241.45,325c13,0,23.5,10.6,23.5,23.5s-10.5,23.6-23.5,23.6s-23.5-10.6-23.5-23.5    S228.45,325,241.45,325z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ad-other-feilds">
+                                <div class="ad-checkbox">
+                                    <label>
+                                     <input type="checkbox" name="remeber" class="ad-checkbox">
+                                     <span>Remember Me</span>
+                                 </label>
+                             </div>
+                             <a class="forgot-pws-btn" href="#">Forgot Password?</a>
+                         </div>
+                         <div class="ad-auth-btn">
+                            <button class="ad-btn ad-login-member">
+                                <span class="spinner" id="spinner" style="display: none;">
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                </span>
+                                <span class="btnText">
+                                  login
+                              </span>
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div class="ad-notifications ad-error">
+        <p><span>Duhh!</span>Something Went Wrong</p>
     </div>
-
-
-    <!-- Vendor JS -->
-    <script src="src/js/vendors.min.js"></script>
-    <script src="src/js/pages/chat-popup.js"></script>
-    <script src="assets/icons/feather-icons/feather.min.js"></script>
-
+</div>
+</div>
 </body>
-
-
-
 </html>
+<script src="assets/js/jquery.min.js"></script> 
+<script>
+    $('#loginForm').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:'ajax/login.php',
+            type: 'POST',
+            data : $(this).serialize(),
+            cache: false,
+            beforeSend: function() {
+                $('#spinner').show();
+                $('#result').hide();
+                $('#btnText').hide();
+            },
+            success: function(data){
+                if (data == 1) {
+                    location.href = 'dashboard';
+                }
+                else{
+                    $('#result').html(data);
+                    $('#result').fadeIn();
+                    $('#spinner').hide();
+                    $('#btnText').show();
+                }
+
+                console.log(data);
+            }
+        })
+    })
+
+</script>

@@ -5,11 +5,25 @@ if (! isset($_SESSION['course_admin'])) {
   exit();
 }
 
+if (!isset($_GET['id'])) {
+    header('location: students');
+    exit();
+}
+
 include('../dbconfiguration.php');
 include('../functions.php');
+$user_id = $_GET['id'];
 
+$sql1 = "SELECT * FROM users WHERE id = $user_id";
+$res = mysqli_query($conn, $sql1);
+$student = mysqli_fetch_assoc($res);
 
-$sql = "SELECT * FROM scorerecord JOIN users on users.id = scorerecord.user_id ORDER BY scorerecord.id DESC";
+if (empty($student)) {
+    header('location: students');
+    exit();
+}
+
+$sql = "SELECT * FROM scorerecord JOIN users on users.id = scorerecord.user_id WHERE user_id = $user_id ORDER BY scorerecord.id DESC";
 $result = mysqli_query($conn, $sql);
 
 
@@ -49,7 +63,7 @@ $result = mysqli_query($conn, $sql);
                         <div class="breadcrumb-list">
                             <ul>
                                 <li class="breadcrumb-link">
-                                    <a href="#"><i class="fas fa-home mr-2"></i>Dashboard</a>
+                                    <a href="./"><i class="fas fa-home mr-2"></i>Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-link active">Admin</li>
                             </ul>
@@ -63,7 +77,7 @@ $result = mysqli_query($conn, $sql);
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card chart-card">
                         <div class="card-header">
-                            <h4 class="has-btn">Assessments</h4>
+                            <h4 class="has-btn"><?php echo $student['full_studentName'] ?> (<?php echo $student['matric_no'] ?>) Assessments</h4>
                         </div>
 
 

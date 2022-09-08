@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+include('functions.php');
 ?>
 
 <!DOCTYPE html>
@@ -24,22 +25,9 @@ session_start();
                 <div class="card">
                     <div class="card-body">
                         <?php
-                        $msg = "";
+                        
                         $result = $_SESSION['result'];
-                        if ($result >= 100  && $result <= 140) {
-                            $msg = "<div class='alert alert-success text-center mt-4'>You're flying high. You are made for the stars, expect great results</div>";
-                        } elseif ($result >= 70  && $result <= 99) {
-                            $msg = "<div class='alert alert-success'>You're trying, a little bit of efforts and you'd be flying high</div>";
-                        } elseif ($result >= 50  && $result <= 69) {
-                            $msg = "<div class='alert alert-info'>You're on a average performance, please buckle up and join the students at the top
-                            </div>";
-                        } elseif ($result >= 30  && $result <= 49) {
-                            $msg = "<div class='alert alert-warning'>Oh! A little bit poor. You can perform better. Please, put in more efforts</div>";
-                        } elseif ($result >= 0  && $result <= 29) {
-                            $msg = "<div class='alert alert-danger'>We are sorry to say this, your performance level is very low. You need to work very hard to avoid failure</div>";
-                        } else {
-                            $msg = "<div class='alert alert-danger'>An unexpected error. Please try again!</div>";
-                        }
+                        $msg = getMessage($result);
                         ?>
 
                         <h5 class="card-title"></h5>
