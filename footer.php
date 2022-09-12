@@ -9,8 +9,8 @@
             <!--begin col-md-5 -->
             <div class="col-md-5">
 
-                <p>© 2021 <span class="template-name">LaunchPage</span>. Designed by <a href=""
-                        target="_blank">Benjamen</a></p>
+                <p>© <?php echo date('Y') ?> <span class="template-name">LaunchPage</span>. Designed by <a href=""
+                        target="_blank">Barakah</a></p>
 
             </div>
             <!--end col-md-5 -->

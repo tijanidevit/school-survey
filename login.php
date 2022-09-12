@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
                             <div class="input-group">
                                 <button type="submit" name="submit" class="btn btn-primary">Login</button>
                             </div>
-                            <p class="mt-3">Don't have any account? <a href="newUser.php">Register Here</a></p>
+                            <p class="mt-3">Don't have any account? <a href="register">Register Here</a></p>
                         </form>
                     </div>
 

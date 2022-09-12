@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) { // Check register button is clicked or not
                             <div class="input-group">
                                 <button type="submit" name="submit" class="btn btn-danger">Register</button>
                             </div>
-                            <p class="mt-3">Do you have already an account? <a href="loginUser.php">Login Here</a></p>
+                            <p class="mt-3">Do you have already an account? <a href="login">Login Here</a></p>
 
 
                         </div>
