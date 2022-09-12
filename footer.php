@@ -9,7 +9,7 @@
             <!--begin col-md-5 -->
             <div class="col-md-5">
 
-                <p>© <?php echo date('Y') ?> <span class="template-name">LaunchPage</span>. Designed by <a href=""
+                <p>© <?php echo date('Y') ?> <span class="template-name">FPI Course</span>. Designed by <a href=""
                         target="_blank">Barakah</a></p>
 
             </div>
